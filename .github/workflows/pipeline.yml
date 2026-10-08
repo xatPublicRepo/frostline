@@ -1,0 +1,41 @@
+name: Pipeline
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Run tests
+        run: |
+          python -m pytest -v --junitxml=test-results.xml
+
+      - name: Publish test results
+        if: ${{ !cancelled() }}
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: test-results.xml
