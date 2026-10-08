@@ -1,0 +1,7 @@
+{
+  "model_version": "frost-lr-2026.09",
+  "features": ["air_temp_c", "dew_point_c", "wind_speed_ms", "cloud_cover_pct"],
+  "weights": [-0.62, 0.18, -0.45, -0.035],
+  "intercept": 2.4,
+  "threshold": 0.35
+}

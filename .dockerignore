@@ -1,0 +1,8 @@
+# What `docker build .` leaves out of the build context.
+.git
+.github
+.venv
+tests
+__pycache__
+*.pyc
+scratch
